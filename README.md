@@ -7,5 +7,5 @@ Here is a description of the projects namespaces:
 - Combat: Scripts that involves the calculations for damage and death
 - Core: Scripts that manages scenes
 - Input: Scripts that relate to Rewired or other input interfacing
-- Math: Scripts that deal with vectors, layermasks, and other events
+- Math: Scripts that deal with vectors, layermasks, rotations, and transforms.
 - UI: Scripts that relate to the User Interface
