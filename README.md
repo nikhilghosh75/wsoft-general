@@ -10,3 +10,4 @@ Here is a description of the projects namespaces:
 - Input: Scripts that relate to Rewired or other input interfacing
 - Math: Scripts that deal with vectors, layermasks, rotations, and transforms.
 - UI: Scripts that relate to the User Interface
+- VFX: Scripts that relate to spawning/manipulating VFXs and Shaders
