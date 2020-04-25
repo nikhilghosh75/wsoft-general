@@ -4,7 +4,7 @@ A repository for scripts created by the WolverineSoft Studio at the University o
 Here is a description of the projects namespaces:
 - Animation: Scripts that help with animations and animation controllers
 - Audio: Scripts that are used to interact/interface with Wwise or other Audio functionalities
-- Camera: Scripts that are used with cameras and Cinemachine
+- Camera: Scripts that are used with cameras, renderers, and Cinemachine
 - Combat: Scripts that involves the calculations for damage and death
 - Core: Scripts that manages scenes
 - Input: Scripts that relate to Rewired or other input interfacing
