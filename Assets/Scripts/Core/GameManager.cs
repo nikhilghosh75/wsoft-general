@@ -46,6 +46,8 @@ namespace WSoft.Core
         [Tooltip("Raised when the game is resumed")]
         public UnityEvent gameResumeEvent;
 
+        public bool InTransition { get; private set; } = false;
+
         // A wrapper of all the events to group them in the editor
         [System.Serializable]
         public class GameManagerEvents
@@ -155,6 +157,71 @@ namespace WSoft.Core
         }
 
         /// <summary>
+        /// Public interface for loading a scene asynchronously.
+        /// </summary>
+        /// <param name="sceneName">The scene to be loaded</param>
+        /// <param name="callback">The action to be taken when the scene is loaded</param>
+        public static void LoadScene(string sceneName, System.Action callback = null)
+        {
+            if (!Instance.InTransition)
+                Instance.StartCoroutine(Instance.DoLoadScene(sceneName, callback));
+        }
+
+        /// <summary>
+        /// Public interface
+        /// </summary>
+        /// <param name="sceneName">The scene to be loaded</param>
+        /// <param name="callback">The action to be taken when the scene is loaded</param>
+        public static void LoadSceneAsync(string sceneName, System.Action callback = null)
+        {
+            if (!Instance.InTransition)
+                Instance.StartCoroutine(Instance.DoLoadSceneAsync(sceneName, callback));
+        }
+
+        // Preform a transition to a new scene
+        private IEnumerator DoLoadScene(string sceneName, System.Action callback)
+        {
+            Debug.Log(string.Format("Starting transition to scene \"{0}\"", sceneName));
+
+            InTransition = true;
+
+            SceneManager.LoadScene(sceneName);
+
+            // make sure game is unpaused after loading
+            Time.timeScale = 1f;
+            gamePaused = false;
+
+            events.OnLevelLoaded.Invoke();
+            InTransition = false;
+
+            Debug.Log(string.Format("Completed transition to scene \"{0}\"", sceneName));
+
+            yield return null;
+            callback?.Invoke();
+        }
+
+        private IEnumerator DoLoadSceneAsync(string sceneName, System.Action callback)
+        {
+            Debug.Log(string.Format("Starting transition to scene \"{0}\"", sceneName));
+
+            InTransition = true;
+            var currentSceneName = SceneManager.GetActiveScene().name;
+
+            var load = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            yield return new WaitUntil(() => { return load.isDone; });
+
+            events.OnLevelLoaded.Invoke();
+
+            Debug.Log(string.Format("Completed transition to scene \"{0}\"", sceneName));
+
+            callback?.Invoke();
+
+            load = SceneManager.UnloadSceneAsync(currentSceneName);
+            yield return new WaitUntil(() => { return load.isDone; });
+            InTransition = false;
+        }
+
+        /// <summary>
         /// When the game is over, pause the game and invoke the events
         /// </summary>
         public static void GameOver()
@@ -191,6 +258,21 @@ namespace WSoft.Core
             instance.gameResumeEvent.Invoke();
             gamePaused = false;
             Time.timeScale = 1f;
+        }
+
+        /// <summary>
+        /// Toggle the pausing of the game (Unpausing the game if it is paused, and pausing the game if it is unpaused)
+        /// </summary>
+        public static void TogglePause()
+        {
+            if (gamePaused)
+            {
+                UnpauseGame();
+            }
+            else
+            {
+                PauseGame();
+            }
         }
     }
 }
