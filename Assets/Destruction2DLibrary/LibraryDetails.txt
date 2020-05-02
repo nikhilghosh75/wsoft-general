@@ -1,0 +1,5 @@
+/* A destruction library. The only directly usable script is Breakable.cs
+* @Robert Keller (RKIV#9137)
+*/
+Originally from the Open Source Destruction 2D Library:
+https://github.com/mjholtzem/Unity-2D-Destruction
