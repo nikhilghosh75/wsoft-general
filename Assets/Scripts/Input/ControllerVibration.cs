@@ -23,6 +23,10 @@ namespace WSoft.Input
 
     public class ControllerVibration : MonoBehaviour
     {
+        /// <summary>
+        /// Vibrates the current controller, if it exists
+        /// </summary>
+        /// <param name="settings">The settings of the vibration</param>
         public static void VibrateController(VibrationSettings settings)
         {
             Gamepad pad = Gamepad.current;
@@ -40,6 +44,11 @@ namespace WSoft.Input
             gameManager.StartCoroutine(VibrateControllerCoroutine(pad, settings));
         }
 
+        /// <summary>
+        /// Vibrates the controller at the specified index, if it exists
+        /// </summary>
+        /// <param name="index">The index to vibrate the controller</param>
+        /// <param name="settings">The settings of the vibration</param>
         public static void VibrateController(int index, VibrationSettings settings)
         {
             UnityEngine.InputSystem.Utilities.ReadOnlyArray<Gamepad> pads = Gamepad.all;
@@ -59,11 +68,17 @@ namespace WSoft.Input
             gameManager.StartCoroutine(VibrateControllerCoroutine(currentGamepad, settings));
         }
 
+        /// <summary>
+        /// Pause the controller vibration. Useful for pause menus or other functions where Haptics must stop.
+        /// </summary>
         public static void PauseControllerVibration()
         {
             InputSystem.PauseHaptics();
         }
 
+        /// <summary>
+        /// Resumes the controller vibration if it was paused.
+        /// </summary>
         public static void ResumeControllerVibration()
         {
             InputSystem.ResumeHaptics();
