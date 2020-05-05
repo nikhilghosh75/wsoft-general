@@ -1,6 +1,6 @@
 ﻿/*
  * Handles the loading of scenes and the pausing, unpausing, and quitting of the application
- * @ Nikhil Ghosh '23, @ Max Perraut '20, Matthew Rader '19, Zena Abulhab '?, George Castle '22, Gino Bryja '20
+ * @ Nikhil Ghosh '23, Max Perraut '20, Matthew Rader '19, Zena Abulhab '?, George Castle '22, Gino Bryja '20, Zhenyuan Zhang '?
  */
 
 using System.Collections;
