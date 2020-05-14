@@ -1,5 +1,6 @@
 ﻿/*
- * An extension of the AudioOnCollide2D script, but used collisions in 3D
+ * Plays an AudioEvent when the object collides with another object, if the object fulfills certain requirements.
+ * Note that when the conditions of one are fullfilled, none of the other audioEvents will be created
  * @ Nikhil Ghosh '23
  */
 using System.Collections;
@@ -8,20 +9,51 @@ using UnityEngine;
 
 namespace WSoft.Audio
 {
-    public class AudioOnCollide : MonoBehaviour
+    public enum Something { NONE, AMBER, MAX};
+
+    /// <summary>
+    /// An enum telling the game how to compare collisions.
+    /// </summary>
+    public enum CollisionComparisonMode
     {
-        [Tooltip("The datas used for Audio Collisions")]
+        NONE = 0, // No comparison required, play audio automatically
+        TAG = 1, // Require that object have specific tag in order for audio to be played
+        LAYER = 2, // Require that object be in specific layermask in order to work
+        BOTH = 3 // Require that object both be in layer and have specific tag
+    };
+
+    /// <summary>
+    /// A struct containing the details for how audio works when two objects collide.
+    /// </summary>
+    public struct CollisionAudio
+    {
+        [Tooltip("How the audio data should be compared.")]
+        public CollisionComparisonMode comparisonMode;
+
+        [Tooltip("The Layermask to compare against. If the CollisionComparisonMode is NONE or TAG, this has no effect")]
+        public LayerMask layerMask;
+
+        [Tooltip("The Tag to compare against. If the CollisionComparisonMode is NONE or LAYER, this has no effect")]
+        public string tag;
+
+        [Tooltip("The AudioEvent to be played on the collision")]
+        public AudioEvent audioEvent;
+    }
+
+    public class AudioOnCollide2D : MonoBehaviour
+    {
+        [Tooltip("Datas")]
         public CollisionAudio[] audioDatas;
 
         /// <summary>
         /// Opon each collision, check to see if the Audio should play.
         /// </summary>
-        void OnCollisionEnter(Collision collision)
+        void OnCollisionEnter2D(Collision2D collision)
         {
-            foreach (CollisionAudio audioData in audioDatas)
+            foreach(CollisionAudio audioData in audioDatas)
             {
                 bool didAudioPlay = PlayAudioData(audioData, collision.gameObject);
-                if (didAudioPlay)
+                if(didAudioPlay)
                 {
                     return;
                 }

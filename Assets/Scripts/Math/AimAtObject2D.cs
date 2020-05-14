@@ -1,7 +1,5 @@
 ﻿/*
- * receive the gameobject from OnAggro and set it as the target of the enemies
- * in the scene. The enemies will rotate toward the target when it is in the scene,
- * and won't rotate toward it when it is out of the scene or if the target is cleared.
+ * Rotate an object towards a given object in 2D, interpolating the rotation in between
  * @Ziang Wang (ziang wang #7692)
 */
 using System.Collections;
@@ -10,7 +8,7 @@ using UnityEngine;
 
 namespace WSoft.Math
 {
-    public class AimingAtObject : MonoBehaviour
+    public class AimAtObject2D : MonoBehaviour
     {
         private GameObject target;
 

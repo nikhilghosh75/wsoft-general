@@ -1,5 +1,5 @@
 ﻿/* 
- * Handles when enemies enter aggro and the resulting actions taken.
+ * Handles when enemies enter aggro and the resulting actions taken in 2D.
  * This is used for activating the enemies.
  * @ Michael Tilbury (zafuru#8634)
 */
@@ -11,7 +11,7 @@ using UnityEngine.Events;
 
 namespace WSoft.Combat
 {
-    public class EnemyAggro : MonoBehaviour
+    public class EnemyAggro2D : MonoBehaviour
     {
         [Header("Enemy Aggro Trigger")]
 
@@ -44,7 +44,7 @@ namespace WSoft.Combat
         private void Start()
         {
             // Get reference to enemy's CircleCollider2D
-            SphereCollider collider = GetComponent<SphereCollider>();
+            CircleCollider2D collider = GetComponent<CircleCollider2D>();
 
             // Set the enemy's circle collider to specified aggroRadius
             collider.isTrigger = true;
@@ -65,7 +65,7 @@ namespace WSoft.Combat
             return target;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             // Invoke OnAggro when the player enters the enemy's trigger or enter search mode
             if (other.gameObject.CompareTag("Player"))
@@ -83,7 +83,7 @@ namespace WSoft.Combat
             }
         }
 
-        private void OnTriggerStay(Collider other)
+        private void OnTriggerStay2D(Collider2D other)
         {
             // Raycast until enemy has line of sight on the player
             if (raycastLineOfSight && isSearching)
@@ -96,7 +96,7 @@ namespace WSoft.Combat
             }
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit2D(Collider2D other)
         {
             // Invoke OnDeaggro when the player exits the enemy's trigger 
             if (other.gameObject.CompareTag("Player"))

@@ -1,7 +1,6 @@
 ﻿/*
  * Creates a parallax effect where the background and foreground move at different speeds.
  * @ Zhang Zhenyuan '?, David Sohn '20, Max Perraut '20
- * ADD COMMENTS
  */
 
 using System.Collections;

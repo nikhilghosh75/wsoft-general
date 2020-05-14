@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace WSoft.Combat
 {
-    public class DamageOnTrigger : MonoBehaviour
+    public class DamageOnTrigger2D : MonoBehaviour
     {
         [Tooltip("The amount of damage that should be inflicted")]
         public int damage;
@@ -34,14 +34,15 @@ namespace WSoft.Combat
             }
         }
 
-        private void OnTriggerEnter(Collider collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             DoDamage(collision.gameObject);
         }
 
-        private void OnTriggerStay(Collider collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
             DoDamage(collision.gameObject);
         }
     }
 }
+

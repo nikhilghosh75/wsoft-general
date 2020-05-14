@@ -11,18 +11,18 @@ using UnityEngine.Events;
 namespace WSoft.Math
 {
     [System.Serializable]
-    public class AimEvent : UnityEvent<Vector3> { }
+    public class AimEvent2D : UnityEvent<Vector2> { }
 
-    public class AimPivot : MonoBehaviour
+    public class AimPivot2D : MonoBehaviour
     {
         [Tooltip("An event triggered when the transform changes")]
-        public AimEvent OnAim;
+        public AimEvent2D OnAim;
 
         /// <summary>
         /// Aim the transform towards the direction. Checks if the vector is 0.
         /// </summary>
         /// <param name="aimVec">The direction to aim towards, relative to the right vector</param>
-        public void AimToward(Vector3 aimVec)
+        public void AimToward(Vector2 aimVec)
         {
             if (!Mathf.Approximately(aimVec.sqrMagnitude, 0))
             {

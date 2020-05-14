@@ -1,5 +1,5 @@
 ﻿/* 
- * Applies damage through OnCollisionEnter, uses a layermask to filter
+ * Applies damage through OnCollisionEnter2D, uses a layermask to filter
  * @ Max Perraut '20
  */
 using System.Collections;
@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace WSoft.Combat
 {
-    [RequireComponent(typeof(Collider2D))]
+    [RequireComponent(typeof(Collider))]
     public class DamageOnCollision : MonoBehaviour
     {
         [Tooltip("The amount of damage that should be inflicted")]
@@ -35,15 +35,14 @@ namespace WSoft.Combat
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnCollisionEnter(Collision collision)
         {
             DoDamage(collision.gameObject);
         }
 
-        private void OnCollisionStay2D(Collision2D collision)
+        private void OnCollisionStay(Collision collision)
         {
             DoDamage(collision.gameObject);
         }
     }
 }
-
